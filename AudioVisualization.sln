@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35222.181
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AudioVisualization", "AudioVisualization.vcxproj", "{F202DD5B-4FFC-4A5D-AB36-579E5D2A162E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F202DD5B-4FFC-4A5D-AB36-579E5D2A162E}.Debug|x64.ActiveCfg = Debug|x64
+		{F202DD5B-4FFC-4A5D-AB36-579E5D2A162E}.Debug|x64.Build.0 = Debug|x64
+		{F202DD5B-4FFC-4A5D-AB36-579E5D2A162E}.Debug|x86.ActiveCfg = Debug|Win32
+		{F202DD5B-4FFC-4A5D-AB36-579E5D2A162E}.Debug|x86.Build.0 = Debug|Win32
+		{F202DD5B-4FFC-4A5D-AB36-579E5D2A162E}.Release|x64.ActiveCfg = Release|x64
+		{F202DD5B-4FFC-4A5D-AB36-579E5D2A162E}.Release|x64.Build.0 = Release|x64
+		{F202DD5B-4FFC-4A5D-AB36-579E5D2A162E}.Release|x86.ActiveCfg = Release|Win32
+		{F202DD5B-4FFC-4A5D-AB36-579E5D2A162E}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {73D2057D-7A8B-4B92-BCCC-1CA4BB1AA36F}
+	EndGlobalSection
+EndGlobal
