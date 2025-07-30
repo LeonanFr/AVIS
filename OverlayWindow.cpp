@@ -4,6 +4,7 @@
 
 static std::atomic<int>* g_directionPtr = nullptr;
 static int lastRenderedDirection = 0;
+static std::atomic<bool> g_shouldExit = false;
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
     switch (msg) {
@@ -35,6 +36,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
     }
 
     case WM_DESTROY:
+        g_shouldExit = true;  // Signal the updater thread to exit
         PostQuitMessage(0);
         return 0;
     }
@@ -44,6 +46,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 
 void RunOverlay(std::atomic<int>& directionRef) {
     g_directionPtr = &directionRef;
+    g_shouldExit = false;  // Reset the exit flag
 
     const wchar_t CLASS_NAME[] = L"OverlayWindowClass";
 
@@ -71,13 +74,15 @@ void RunOverlay(std::atomic<int>& directionRef) {
     ShowWindow(hwnd, SW_SHOW);
 
     std::thread updater([hwnd]() {
-        while (IsWindow(hwnd)) {
-            int currentDir = g_directionPtr->load();
-            if (currentDir != lastRenderedDirection) {
-                lastRenderedDirection = currentDir;
-                InvalidateRect(hwnd, nullptr, TRUE);
+        while (!g_shouldExit && IsWindow(hwnd)) {
+            if (g_directionPtr) {
+                int currentDir = g_directionPtr->load();
+                if (currentDir != lastRenderedDirection) {
+                    lastRenderedDirection = currentDir;
+                    InvalidateRect(hwnd, nullptr, TRUE);
+                }
             }
-            Sleep(5);
+            Sleep(16);  // ~60 FPS update rate instead of 200 FPS
         }
         });
 
@@ -87,5 +92,9 @@ void RunOverlay(std::atomic<int>& directionRef) {
         DispatchMessage(&msg);
     }
 
-    updater.join();
+    // Ensure proper cleanup
+    g_shouldExit = true;
+    if (updater.joinable()) {
+        updater.join();
+    }
 }
