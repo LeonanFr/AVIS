@@ -20,5 +20,10 @@ int main()
 		std::cerr << "Erro: " << e.what() << '\n';
 	}
 
+	// Properly join the overlay thread before exiting
+	if (overlayThread.joinable()) {
+		overlayThread.join();
+	}
+
 	return 0;
 }
